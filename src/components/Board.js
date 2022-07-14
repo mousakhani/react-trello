@@ -17,20 +17,10 @@ class Board extends React.Component {
       id: Math.random(),
       title: this.addBoardInput.current.value,
       board: 300,
-      cards: [],
       craetedAt: new Date(),
-      cards: [
-        {
-          id: 1,
-          text: "Card 1",
-        },
-        {
-          id: 2,
-          text: "Card 2",
-        },
-      ],
+      cards: [],
     };
-    if (list.title) { 
+    if (list.title) {
       this.setState({ currentLists: [...this.state.currentLists, list] });
       this.addBoardInput.current.value = "";
     }
