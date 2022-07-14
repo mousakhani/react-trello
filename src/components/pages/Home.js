@@ -1,6 +1,7 @@
 import React from "react";
 import BoardPreview from "../BoardPreview";
 import PropTypes from "prop-types";
+import CreateBoardForm from "../CreateBoardForm";
 
 class Home extends React.Component {
   newBoard = () => {
@@ -13,14 +14,16 @@ class Home extends React.Component {
   };
   render() {
     return (
-      <div>
-        <button onClick={this.newBoard}>New Board</button>
-        {this.props.boards.map((board) => (
-          <BoardPreview key={board.id} board={board} />
-        ))}
+      <div className="flex flex-col w-full justify-around bg-slate-300">
+        <CreateBoardForm createNewBoard={this.props.createNewBoard} />
+        <div className=" flex justify-start gap-x-32 gap-y-5 flex-wrap">
+          {this.props.boards.map((board) => (
+            <BoardPreview key={board.id} board={board} />
+          ))}
+        </div>
       </div>
     );
-  }
+  } 
 }
 
 Home.propTypes = {

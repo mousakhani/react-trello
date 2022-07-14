@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 class List extends React.Component {
   render() {
     return (
-      <div className="list">
+      <div className="flex flex-col bg-slate-50 mr-5 px-3 py-2 my-1 w-44 shadow-md rounded-xl">
         <div className="list-header">
           <p>{this.props.list.title}</p>
         </div>

@@ -16,7 +16,7 @@ class App extends React.Component {
   };
   render() {
     return (
-      <div className="">
+      <div className="flex flex-col  h-screen bg-slate-200">
         <Home boards={this.state.boards} createNewBoard={this.createNewBoard} />
         <Board />
       </div>
