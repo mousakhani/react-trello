@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Board from "./components/Board";
-import data from "./components/sampleData";
+import { boards } from "./components/sampleData";
 import Home from "./components/pages/Home";
 
 class App extends React.Component {
@@ -8,7 +8,7 @@ class App extends React.Component {
     boards: [],
   };
   componentDidMount() {
-    this.setState({ boards: data });
+    this.setState({ boards: boards });
   }
 
   createNewBoard = (board) => {
@@ -18,6 +18,7 @@ class App extends React.Component {
     return (
       <div>
         <Home boards={this.state.boards} createNewBoard={this.createNewBoard} />
+        <Board />
       </div>
     );
   }
