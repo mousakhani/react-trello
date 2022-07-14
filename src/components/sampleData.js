@@ -77,7 +77,7 @@ const lists = [
     board: 1000,
     cards: [
       {
-        id: 1,
+        id: 2,
         text: "Paint bedrooms this summer",
       },
     ],
@@ -88,7 +88,7 @@ const lists = [
     board: 1001,
     cards: [
       {
-        id: 1,
+        id: 3,
         text: "Paint bedrooms this summer",
       },
     ],

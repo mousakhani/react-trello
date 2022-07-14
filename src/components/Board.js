@@ -27,7 +27,6 @@ class Board extends React.Component {
         {this.state.currentLists.map((list) => (
           <List key={list.id} list={list} />
         ))}
-        {/* <List /> */}
       </div>
     );
   }
