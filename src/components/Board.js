@@ -9,16 +9,31 @@ class Board extends React.Component {
   componentDidMount() {
     this.setState({ currentLists: lists });
   }
+  addBoardInput = React.createRef();
 
-  createNewList = () => {
+  createNewList = (e) => {
+    e.preventDefault();
     const list = {
       id: Math.random(),
-      title: "My amazing list",
+      title: this.addBoardInput.current.value,
       board: 300,
       cards: [],
       craetedAt: new Date(),
+      cards: [
+        {
+          id: 1,
+          text: "Card 1",
+        },
+        {
+          id: 2,
+          text: "Card 2",
+        },
+      ],
     };
-    this.setState({ currentLists: [...this.state.currentLists, list] });
+    if (list.title) { 
+      this.setState({ currentLists: [...this.state.currentLists, list] });
+      this.addBoardInput.current.value = "";
+    }
   };
   render() {
     return (
@@ -28,12 +43,14 @@ class Board extends React.Component {
             <List key={list.id} list={list} />
           ))}
         </div>
-        <button
-          onClick={this.createNewList}
-          className="border-2 border-blue-300 bg-white rounded-xl my-2 ml-2 py-1 shadow-md h-10 w-32 content-center"
-        >
-          New list
-        </button>
+        <form onSubmit={this.createNewList}>
+          <input
+            type={"text"}
+            ref={this.addBoardInput}
+            name="name"
+            placeholder=" + New List"
+          />
+        </form>
       </div>
     );
   }
