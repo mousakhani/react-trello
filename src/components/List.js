@@ -25,7 +25,6 @@ class List extends React.Component {
         currentCards: [...this.state.currentCards, newCard],
       });
       this.nameInput.current.value = "";
-      console.log("New card added");
     }
   };
 
