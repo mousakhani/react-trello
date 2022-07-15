@@ -10,7 +10,7 @@ class BoardPreview extends React.Component {
   gotoBoard() {
     this.props.navigate(`/board/${this.props.board.id}`, {
       state: {
-        background: this.props.board.background,
+        board: this.props.board,
       },
     });
   }
