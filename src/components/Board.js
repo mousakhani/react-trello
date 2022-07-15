@@ -1,7 +1,7 @@
 import React from "react";
 import List from "./List";
 import { lists } from "../components/sampleData";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 class Board extends React.Component {
   state = {
@@ -28,7 +28,14 @@ class Board extends React.Component {
   };
   render() {
     return (
-      <div className="flex flex-col mt-5 border-4 border-red-300">
+      <div
+        className="flex flex-col mt-5 border-4 border-red-300"
+        style={{
+          backgroundColor: this.props.state
+            ? this.props.state.background
+            : null,
+        }}
+      >
         <Link to="/">Home</Link>
         <Link to="/about">About</Link>
         <div className="flex flex-wrap px-5 ">
@@ -44,12 +51,16 @@ class Board extends React.Component {
             placeholder=" + New List"
           />
         </form>
-        {this.props.params.userId}
       </div>
     );
   }
 }
 
+/*We use this solution. because we use useParams() hook in class component */
 export default function WithParams(props) {
-  return <Board {...props} params={useParams()} />;
+  /**
+useLocation: send state by props
+useParams: send params. for example boardId by props
+*/
+  return <Board {...props} params={useParams()} {...useLocation()} />;
 }

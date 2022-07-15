@@ -12,6 +12,7 @@ class Home extends React.Component {
     };
     this.props.createNewBoard(board);
   };
+
   render() {
     return (
       <div className="flex flex-col w-full justify-around bg-slate-300">
@@ -23,7 +24,7 @@ class Home extends React.Component {
         </div>
       </div>
     );
-  } 
+  }
 }
 
 Home.propTypes = {

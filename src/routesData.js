@@ -18,7 +18,7 @@ const routes = [
   {
     key: 2,
     name: "board",
-    path: "/:userId/board",
+    path: "/board/:boardId",
     element: <Board />,
   },
   {
