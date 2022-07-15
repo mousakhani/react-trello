@@ -20,7 +20,6 @@ class List extends React.Component {
     };
 
     if (newCard.text) {
-      console.log(newCard);
       this.setState({
         currentCards: [...this.state.currentCards, newCard],
       });

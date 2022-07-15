@@ -13,12 +13,12 @@ const routes = [
     id: 1,
     name: "page not found",
     path: "*",
-    element: <PageNotFound />,
+    element: <PageNotFound name="Morteza" />,
   },
   {
     key: 2,
     name: "board",
-    path: "/board",
+    path: "/:userId/board",
     element: <Board />,
   },
   {

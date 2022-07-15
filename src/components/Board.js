@@ -1,6 +1,7 @@
 import React from "react";
 import List from "./List";
 import { lists } from "../components/sampleData";
+import { Link, useParams } from "react-router-dom";
 
 class Board extends React.Component {
   state = {
@@ -28,6 +29,8 @@ class Board extends React.Component {
   render() {
     return (
       <div className="flex flex-col mt-5 border-4 border-red-300">
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
         <div className="flex flex-wrap px-5 ">
           {this.state.currentLists.map((list) => (
             <List key={list.id} list={list} />
@@ -41,9 +44,12 @@ class Board extends React.Component {
             placeholder=" + New List"
           />
         </form>
+        {this.props.params.userId}
       </div>
     );
   }
 }
 
-export default Board;
+export default function WithParams(props) {
+  return <Board {...props} params={useParams()} />;
+}
