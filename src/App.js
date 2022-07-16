@@ -5,20 +5,34 @@ import Home from "./components/pages/Home";
 import { Link } from "react-router-dom";
 // import PageNotFound from "./components/pages/PageNotFound";
 import { boardsRef, db } from "./firebase";
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { collection, addDoc, getDocs, Timestamp } from "firebase/firestore";
 // import { boradsRef, listsRef, cardsRef, boardsRef } from "./firebase";
 class App extends React.Component {
   state = {
     boards: [],
   };
-  componentDidMount() {
-    this.setState({ boards: boards });
-  }
+
+  getBoards = async (userId) => {
+    try {
+      const boards = await getDocs(boardsRef);
+      boards.forEach((board) => {
+        console.log(board.data().board.title);
+        const data = board.data().board;
+        const boardObj = {
+          id: board.id,
+          ...data,
+        };
+        this.setState({ boards: [...this.state.boards, boardObj] });
+        console.log("State ", this.state.boards);
+      });
+    } catch (error) {
+      console.error("Error getting boards ", error);
+    }
+  };
 
   createNewBoard = async (board) => {
     try {
       const newBoard = await addDoc(boardsRef, { board });
-
       const boardObj = {
         id: newBoard.id,
         ...board,
@@ -33,10 +47,14 @@ class App extends React.Component {
       <div className="flex flex-col  h-screen bg-slate-200">
         <Link to="/about">About</Link> {"  "}
         <Link to="/board">Board</Link>
-        <Home boards={this.state.boards} createNewBoard={this.createNewBoard} />
+        <Home
+          boards={this.state.boards}
+          getBoards={this.getBoards}
+          createNewBoard={this.createNewBoard}
+        />
         <Board />
       </div>
     );
   }
-} 
+}
 export default App;

@@ -1,7 +1,8 @@
 import React from "react";
 import Card from "./Card";
 import PropTypes from "prop-types";
-
+import { cardsRef } from "../firebase";
+import { addDoc } from "firebase/firestore";
 class List extends React.Component {
   state = {
     currentCards: [],
@@ -9,21 +10,31 @@ class List extends React.Component {
 
   nameInput = React.createRef();
 
-  createNewCard = (e) => {
+  createNewCard = async (e) => {
     e.preventDefault();
-    const newCard = {
-      id: Math.random(),
-      text: this.nameInput.current.value,
-      listId: "abc123",
-      labels: [],
-      createdAt: new Date(),
-    };
+    try {
+      let newCard = {
+        text: this.nameInput.current.value,
+        listId: this.props.list.id,
+        labels: [],
+        createdAt: new Date(),
+      };
 
-    if (newCard.text) {
-      this.setState({
-        currentCards: [...this.state.currentCards, newCard],
-      });
-      this.nameInput.current.value = "";
+      if (newCard.text && newCard.listId) {
+        const card = await addDoc(cardsRef, {
+          newCard,
+        });
+        newCard = {
+          id: card.id,
+          ...newCard,
+        };
+        this.setState({
+          currentCards: [...this.state.currentCards, newCard],
+        });
+        this.nameInput.current.value = "";
+      }
+    } catch (error) {
+      console.error("Error creating new card ", error);
     }
   };
 

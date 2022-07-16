@@ -4,6 +4,10 @@ import PropTypes from "prop-types";
 import CreateBoardForm from "../CreateBoardForm";
 
 class Home extends React.Component {
+  componentDidMount() {
+    // this.setState({ currentLists: lists });
+    this.props.getBoards();
+  }
   newBoard = () => {
     const board = {
       title: "Trips to take this year",
@@ -14,6 +18,7 @@ class Home extends React.Component {
   };
 
   render() {
+    console.log("Render: ", this.props.boards);
     return (
       <div className="flex flex-col w-full justify-around bg-slate-300">
         <CreateBoardForm createNewBoard={this.props.createNewBoard} />
@@ -28,6 +33,7 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
+  getBoards: PropTypes.func.isRequired,
   boards: PropTypes.array.isRequired,
   createNewBoard: PropTypes.func.isRequired,
 };

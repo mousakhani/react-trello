@@ -2,15 +2,13 @@ import React from "react";
 import List from "./List";
 import { lists } from "../components/sampleData";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { listsRef } from "../firebase";
-import { addDoc } from "firebase/firestore";
+import { boardsRef, listsRef } from "../firebase";
+import { addDoc, getDocs } from "firebase/firestore";
 class Board extends React.Component {
   state = {
     currentLists: [],
   };
-  componentDidMount() {
-    this.setState({ currentLists: lists });
-  }
+
   addBoardInput = React.createRef();
 
   createNewList = async (e) => {
@@ -21,7 +19,7 @@ class Board extends React.Component {
       createdAt: new Date(),
       cards: [],
     };
-    if (list.title) {
+    if (list.title && list.board) {
       try {
         const newList = await addDoc(listsRef, { list });
         list = {
