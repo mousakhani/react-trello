@@ -2,7 +2,8 @@ import React from "react";
 import List from "./List";
 import { lists } from "../components/sampleData";
 import { Link, useLocation, useParams } from "react-router-dom";
-
+import { listsRef } from "../firebase";
+import { addDoc } from "firebase/firestore";
 class Board extends React.Component {
   state = {
     currentLists: [],
@@ -12,19 +13,27 @@ class Board extends React.Component {
   }
   addBoardInput = React.createRef();
 
-  createNewList = (e) => {
+  createNewList = async (e) => {
     e.preventDefault();
-    const list = {
-      id: Math.random(),
+    let list = {
       title: this.addBoardInput.current.value,
-      board: 300,
-      craetedAt: new Date(),
+      board: this.props.state.board.id,
+      createdAt: new Date(),
       cards: [],
     };
     if (list.title) {
-      this.setState({ currentLists: [...this.state.currentLists, list] });
-      this.addBoardInput.current.value = "";
-    }
+      try {
+        const newList = await addDoc(listsRef, { list });
+        list = {
+          id: newList.id,
+          ...list,
+        };
+        this.setState({ currentLists: [...this.state.currentLists, list] });
+        this.addBoardInput.current.value = "";
+      } catch (error) {
+        console.error("Error creating new list ", error);
+      }
+    } else console.error("List title is empty");
   };
   render() {
     return (
