@@ -14,16 +14,15 @@ class App extends React.Component {
 
   getBoards = async (userId) => {
     try {
-      const boards = await getDocs(boardsRef);
-      boards.forEach((board) => {
-        console.log(board.data().board.title);
+      const _boards = await getDocs(boardsRef);
+      _boards.forEach((board) => {
         const data = board.data().board;
         const boardObj = {
           id: board.id,
           ...data,
         };
         this.setState({ boards: [...this.state.boards, boardObj] });
-        console.log("State ", this.state.boards);
+        console.log(this.state.boards.length);
       });
     } catch (error) {
       console.error("Error getting boards ", error);

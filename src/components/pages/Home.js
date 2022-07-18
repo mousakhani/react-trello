@@ -18,7 +18,6 @@ class Home extends React.Component {
   };
 
   render() {
-    console.log("Render: ", this.props.boards);
     return (
       <div className="flex flex-col w-full justify-around bg-slate-300">
         <CreateBoardForm createNewBoard={this.props.createNewBoard} />
